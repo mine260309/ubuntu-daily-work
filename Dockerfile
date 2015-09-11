@@ -15,11 +15,14 @@ RUN apt-get install -y build-essential g++ zlib1g-dev libbz2-dev
 RUN apt-get install -y git vim tmux
 RUN apt-get install -y aptitude bash-completion dos2unix ftp gcc-multilib \
                        gdb ghex gitk libboost-all-dev libc6-dbg meld python \
-                       quilt wget zip
+                       quilt wget zip ctags
 
 # Add user `mine`, change to your favorite name
 RUN useradd -ms /bin/bash mine && echo "mine:mine" | chpasswd && adduser mine sudo
 RUN mkdir -p /home/mine && chown -R mine:mine /home/mine
 USER mine
 WORKDIR /home/mine
+RUN git clone git://github.com/andsens/homeshick.git /home/mine/.homesick/repos/homeshick 
+RUN /bin/bash -c 'source /home/mine/.homesick/repos/homeshick/homeshick.sh && homeshick clone -b mine260309/dotfiles && homeshick link -f -b dotfiles'
+RUN git clone https://github.com/VundleVim/Vundle.vim.git /home/mine/.vim/bundle/Vundle.vim && vim +PluginInstall +qall
 CMD /bin/bash
