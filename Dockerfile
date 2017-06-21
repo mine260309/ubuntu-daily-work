@@ -1,11 +1,10 @@
-# use the ubuntu 14.04 base image
-FROM ubuntu:14.04
+# use the ubuntu 16.04 base image
+FROM ubuntu:16.04
 
 MAINTAINER Lei YU mine260309@gmail.com
 
-# Replace sources.list with mirrow ubuntu.cs.nctu.edu.tw
-# which is much faster than official server for asia users
-COPY apt-source-asia.list /etc/apt/sources.list
+# Replace sources.list with mirror in China
+COPY apt-source-cn-16.04.list /etc/apt/sources.list
 
 # Update package repository
 RUN apt-get update
