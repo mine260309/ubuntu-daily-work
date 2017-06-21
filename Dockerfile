@@ -1,5 +1,5 @@
 # use the ubuntu 16.04 base image
-FROM ubuntu:16.04
+FROM ppc64le/ubuntu:16.04
 
 MAINTAINER Lei YU mine260309@gmail.com
 
@@ -12,7 +12,7 @@ RUN apt-get update
 # Install g++, git, zlib, etc
 RUN apt-get install -y build-essential g++ zlib1g-dev libbz2-dev
 RUN apt-get install -y git vim tmux
-RUN apt-get install -y aptitude bash-completion dos2unix ftp gcc-multilib \
+RUN apt-get install -y aptitude bash-completion dos2unix ftp gcc-multilib-powerpc-linux-gnu \
                        gdb ghex gitk libboost-all-dev libc6-dbg meld python \
                        quilt wget zip ctags
 
