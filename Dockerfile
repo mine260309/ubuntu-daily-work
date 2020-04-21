@@ -15,6 +15,7 @@ RUN apt-get install -y git vim tmux
 RUN apt-get install -y bash-completion dos2unix ftp gcc-multilib \
                        gdb ghex gitk libboost-all-dev libc6-dbg meld python \
                        quilt wget zip ctags
+RUN apt-get install -y curl
 
 # Add user `mine`, change to your favorite name
 RUN useradd -ms /bin/bash mine && echo "mine:mine" | chpasswd && adduser mine sudo
