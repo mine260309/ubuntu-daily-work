@@ -15,8 +15,11 @@ RUN apt-get install -y bash-completion dos2unix ftp gcc-multilib \
                        gdb ghex gitk libboost-all-dev libc6-dbg meld python \
                        quilt wget zip ctags
 RUN apt-get install -y git vim tmux curl
-RUN apt-get install -y locales && dpkg-reconfigure locales && locale-gen en_US.UTF-8 && update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8 && export LANG=en_US.UTF-8
+RUN apt-get install -y locales
 RUN apt-get install -y chrpath cpio gawk texinfo
+
+# For arm64 uefi build
+RUN apt-get install -y acpica-tools gcc-aarch64-linux-gnu python3-distutils uuid-dev
 
 # Add user `mine`, change to your favorite name
 RUN useradd -ms /bin/bash mine && echo "mine:mine" | chpasswd && adduser mine sudo
@@ -28,6 +31,11 @@ RUN /bin/bash -c 'source /home/mine/.homesick/repos/homeshick/homeshick.sh && ho
 #RUN git clone https://github.com/VundleVim/Vundle.vim.git /home/mine/.vim/bundle/Vundle.vim && vim +PluginInstall +qall
 # vim-plug
 RUN /bin/bash -c 'curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim && vim +PlugInstall +qall'
-ENV LANG=en_US.UTF-8
+
+RUN locale-gen en_US.UTF-8
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US:en
+ENV LC_ALL en_US.UTF-8
+
 CMD /bin/bash
 
